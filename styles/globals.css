@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,26 @@ a {
 
 * {
   box-sizing: border-box;
+}
+.searchbar {
+  @apply bg-white mt-1 px-3 py-2 block w-60 border-solid rounded-full;
+  @apply border-slate-400 text-sm shadow-sm placeholder-slate-500;
+   @apply focus:outline-none focus:border-sky-500 focus:ring-1;
+}
+
+.loader {
+  @apply w-12 h-12 border-4 border-gray-400 rounded-full border-t-blue-600;
+  animation-name: loaderanimation;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+}
+@keyframes loaderanimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
