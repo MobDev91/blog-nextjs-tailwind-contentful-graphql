@@ -2,10 +2,9 @@ import Author from "../../components/_child/Author";
 import Format from "../../layout/Format";
 import Related from "../../components/Related";
 import Image from "next/image";
-import Post from "../../lib/Article"
-import Article from "../../lib/Article";
 
-export default function Page({title,subtitle,img,description,author}){
+export default function Page({post}){
+  const {title,subtitle,img,description,author} = post
     return (
         <Format>
             <section className="container mx-auto py-12 w-1/2">
@@ -34,26 +33,27 @@ export default function Page({title,subtitle,img,description,author}){
         </Format>
     )
 }
-
-
-export async function getStaticProps() {
+  export async function getStaticPaths() {
     // Call an external API endpoint to get posts
-    const posts = await Article(1)
-    console.log(posts);
-    return {
-      props: {posts},
-    }
+    const res = await fetch('http://localhost:3000/posts');
+    const posts = await res.json();
+  
+    // Get the paths we want to pre-render based on posts
+    const paths = posts.map((value) => ({
+      params: { postId: value.id},
+    }))
+  
+    // We'll pre-render only these paths at build time.
+    // { fallback: false } means other routes should 404.
+    return { paths, fallback: false }
   }
 
-export async function getStaticPaths() {
-  const posts = await Article();
-  const paths = posts.map(value => {
-    return {
-      params : {postId : value.id.toString()}
-    }
-  })
-  return {
-    paths,
-    fallback: false // false or 'blocking'
-  };
-}
+  export async function getStaticProps({ params }) {
+    // params contains the post `id`.
+    // If the route is like /posts/1, then params.id is 1
+    const res = await fetch(`http://localhost:3000/posts/${params.id}`)
+    const post = await res.json()
+  
+    // Pass post data to the page via props
+    return { props: { post } }
+  }

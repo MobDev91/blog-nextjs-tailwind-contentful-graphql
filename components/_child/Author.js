@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const Author = ({data}) => {
-  const {name, img, designation} = data;
+  const {name, img, designation} = data
   return (
     <div className='flex'>
         <div>
