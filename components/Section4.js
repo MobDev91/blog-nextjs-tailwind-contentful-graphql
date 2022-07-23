@@ -2,12 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Author from './_child/Author'
-import fetcher from '../lib/fetcher'
+import Fetcher from '../lib/Fetcher'
 import Loader from './Loader'
 import Error from './Error'
 
 const Section4 = () => {
-  const {data, isLoading, isError} = fetcher('api/trending');
+  const {data, isLoading, isError} = Fetcher('api/trending');
   if(isLoading) return <Loader></Loader>
   if(isError) return <Error></Error>
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Author from './_child/Author'
-import fetcher from '../lib/fetcher'
+import Fetcher from '../lib/Fetcher'
 import Loader from './Loader'
 import Error from './Error'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,7 +13,7 @@ import 'swiper/css/autoplay';
 
 const Section1 = () => {
 
-  const {data, isLoading, isError} = fetcher('api/trending');
+  const {data, isLoading, isError} = Fetcher('api/trending');
   if(isLoading) return <Loader></Loader>
   if(isError) return <Error></Error>
 

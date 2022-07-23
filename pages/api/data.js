@@ -1,5 +1,5 @@
-[
-   { "Trending ": [
+export default {
+Trending: [
         {
             id: 1,
             title: "Your most unhappy customers are your greatest source of learning",
@@ -86,7 +86,7 @@
             }
         }
     ],
-    "Posts" : [
+    Posts : [
         {
             id: 1,
             title: "Your most unhappy customers are your greatest source of learning",
@@ -274,7 +274,7 @@
             }
         },
     ],
-   "Popular ": [
+   Popular: [
         {
             id: 1,
             title: "Your most unhappy customers are your greatest source of learning",
@@ -362,4 +362,3 @@
         }
     ]
 }
-]

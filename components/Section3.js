@@ -2,13 +2,13 @@ import React from 'react'
 import Post1 from './_child/Post1'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import fetcher from '../lib/fetcher';
+import Fetcher from '../lib/Fetcher';
 import Loader from './Loader'
 import Error from './Error'
 
 
 const Section3 = () => {
-  const {data, isLoading, isError} = fetcher('api/popular');
+  const {data, isLoading, isError} = Fetcher('api/popular');
   if(isLoading) return <Loader></Loader>
   if(isError) return <Error></Error>
   return (

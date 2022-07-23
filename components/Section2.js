@@ -1,11 +1,11 @@
 import React from 'react'
 import Post from './_child/Post'
-import fetcher from '../lib/fetcher'
+import Fetcher from '../lib/Fetcher'
 import Loader from './Loader'
 import Error from './Error'
 
 const Section2= () => {
-  const {data, isLoading, isError} = fetcher('api/posts');
+  const {data, isLoading, isError} = Fetcher('api/posts');
   if(isLoading) return <Loader></Loader>
   if(isError) return <Error></Error>
   return (
