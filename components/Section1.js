@@ -35,7 +35,7 @@ const Section1 = () => {
       onSwiper={(swiper) => console.log(swiper)}
     >
       { data.map((value,index)=>(
-          <SwiperSlide><Slide data={value} key={index}></Slide></SwiperSlide>
+          <SwiperSlide key={index}><Slide data={value} key={index}></Slide></SwiperSlide>
       ))}
     </Swiper>
         

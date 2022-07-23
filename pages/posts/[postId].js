@@ -5,11 +5,12 @@ import Image from "next/image";
 
 export default function Page({post}){
   const {title,subtitle,img,description,author} = post
+  console.log({title})
     return (
         <Format>
             <section className="container mx-auto py-12 w-1/2">
                 <div className="flex flex-col items-center">
-                {author?<Author data={author}></Author>:<></>}
+              {author?<Author data={author}></Author>:<></>}
                 </div>
                 <div className="post py-10">
                 <h1 className='font-bold text-4xl text-center pb-5'>{title||"unknown"}</h1>
@@ -33,18 +34,19 @@ export default function Page({post}){
         </Format>
     )
 }
-  export async function getStaticPaths() {
-    const res = await fetch('http://localhost:3000/api/posts');
-    const posts = await res.json();
-    const paths = posts.map((value) => ({
-      params: { postId: value.id.toString()},
-    }))
-    return { paths, fallback: false }
-  }
+export async function getStaticPaths() {
+  const res = await fetch('http://localhost:3000/api/posts');
+  const posts =await res.json();
+  const paths = posts.map((value) => ({
+    params: { postId: value.id.toString()},
+  }))
+  return { paths, fallback: false }
+}
 
-  export async function getStaticProps({ params }) {
-    const res = await fetch(`http://localhost:3000/api/posts/${params.id}`)
-    const post = await res.json()
-  
-    return { props: { post } }
-  }
+export async function getStaticProps({ params }) {
+  console.log(params)
+  const res = await fetch(`http://localhost:3000/api/posts/${params.postId}`)
+  const post = await res.json()
+
+  return { props: { post } }
+}
