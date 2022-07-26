@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Author from './_child/Author';
 
 const Related = () => {
+
   return (
     <div className='flex gap-5'>
         <div className='flex flex-col justify-start'>
@@ -16,7 +17,6 @@ const Related = () => {
         <div>
         <Link href={"/"}><a className='text-base font-bold text-gray-800 hover:text-gray-600 lg:text-xl'>Your Most unhappy customers are your greatest source of learning</a></Link>
         </div>
-        <Author/>
         </div>
     </div>
   )
