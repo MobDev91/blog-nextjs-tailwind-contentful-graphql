@@ -40,3 +40,8 @@ a {
     transform: rotate(360deg);
   }
 }
+
+.section1_bg {
+  @apply bg-[url('/images/banner.png')] bg-right bg-no-repeat;
+ 
+}

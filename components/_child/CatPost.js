@@ -4,9 +4,9 @@ function CatPost({data}){
     const {sys,slug,category,title,subtitle,published,postImage,author} = data;
     const baseUrl = process.env.NEXT_PUBLIC_Base_POSTS_URL;
   return (
-  <div className='flex gap-5'>
-          <div className='flex flex-col'>
-          <Link href={`${baseUrl}${slug}`}><a><Image src={`${postImage.url}`} width={450} height={450}></Image></a></Link>
+  <div className='flex flex-col gap-5'>
+          <div className=''>
+          <Link href={`${baseUrl}${slug}`}><a><Image src={`${postImage.url}`} width={350} height={250}></Image></a></Link>
           </div>
           <div className='flex flex-col justify-center'>
           <div>

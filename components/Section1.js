@@ -10,19 +10,15 @@ import Loader from './Loader'
 
 const Section1 = () => {
   SwiperCore.use([Autoplay]);
-  const bg = {
-      background : "url('/images/banner.png') no-repeat",
-      backgroundPosition : "right"
-      }
-      const [posts, setPosts] = useState([])
-    getPosts().then(data=>setPosts(data.data.postCollection.items));
+  const [posts, setPosts] = useState([])
+  getPosts().then(data=>setPosts(data.data.postCollection.items));
   if(posts.length == 0) return <Loader></Loader>
   return (
-    <section className='py-16' style={bg}>
+    <section className='section1_bg py-16' >
         <div className='container mx:auto md:px-15'>
         <h1 className='text-3xl font-bold text-center pb-6'>Trending</h1>
     <Swiper modules={[Autoplay]} slidesPerView={1} autoplay = {{delay:2000}}>
-      {posts.map((post)=>(
+      {posts.slice(0,5).map((post)=>(
           <SwiperSlide key={post.sys.id}>
             <PostT data={post}></PostT>
           </SwiperSlide>
