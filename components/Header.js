@@ -16,9 +16,9 @@ const Header = () => {
         </div>
         <div className='w-96 order-3 flex justify-center'>
         <div className='flex gap-6 text-slate-500'>
-        <Link href={"/"}><a><FaFacebookSquare/></a></Link>
-        <Link href={"/"}><a><FaTwitter/></a></Link>
-        <Link href={"/"}><a><FaYoutube/></a></Link>
+        <Link href={"https://www.facebook.com/oussama.benyssef"}><a><FaFacebookSquare/></a></Link>
+        <Link href={"https://www.twitter.com"}><a><FaTwitter/></a></Link>
+        <Link href={"https://www.youtube.com"}><a><FaYoutube/></a></Link>
         </div>
         </div>
         </div>

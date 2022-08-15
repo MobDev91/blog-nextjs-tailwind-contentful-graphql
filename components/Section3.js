@@ -1,16 +1,15 @@
-import React from 'react'
-import Post1 from './_child/Post1'
+import React, {useState} from 'react'
+import Post1 from './_child/Popular';
+import { getPosts } from '../lib/contentfulApi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import Fetcher from '../lib/Fetcher';
 import Loader from './Loader'
-import Error from './Error'
 
 
 const Section3 = () => {
-  const {data, isLoading, isError} = Fetcher('api/popular');
-  if(isLoading) return <Loader></Loader>
-  if(isError) return <Error></Error>
+  const [posts, setPosts] = useState([]);
+  getPosts().then(data=>setPosts(data.data.postCollection.items));
+  if(posts.length == 0) return <Loader></Loader>  
   return (
     <section className='container mx-auto px-10'>
         <h1 className='text-3xl font-bold text-gray-800 text-center py-10'>Most Popular</h1>
@@ -18,12 +17,11 @@ const Section3 = () => {
       slidesPerView={2}
       onSwiper={(swiper) => console.log(swiper)}
     >
-       { data.map((value,index)=>(
-          <SwiperSlide key={index}><Post1 data={value} key={index}></Post1></SwiperSlide>
+       { posts.map((post)=>(
+          <SwiperSlide key={post.sys.id}><Post1 data={post} key={post.sys.id}></Post1></SwiperSlide>
       ))}
     </Swiper>
     </section>
   )
 }
-
 export default Section3

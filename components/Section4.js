@@ -1,33 +1,41 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import Author from './_child/Author'
-import Fetcher from '../lib/Fetcher'
+import React,{useState} from 'react'
+import { getPosts } from '../lib/contentfulApi'
 import Loader from './Loader'
-import Error from './Error'
+import CatPost from './_child/CatPost'
 
 const Section4 = () => {
-  const {data, isLoading, isError} = Fetcher('api/trending');
-  if(isLoading) return <Loader></Loader>
-  if(isError) return <Error></Error>
+  const [posts, setPosts] = useState([]);
+  getPosts().then(data=>setPosts(data.data.postCollection.items));
+  if(posts.length == 0) return <Loader></Loader>  
   return (
-    <section className='container w-11/12 mr-auto ml-auto py-10'>
-        <div className='grid lg:grid-cols-2'>
+    <section className='container w-11/12 mx-auto px-10'>
+        <div className='grid lg:grid-cols-3'>
           <div className='item'>
             <h1 className='text-2xl font-bold py-12 text-center lg:text-start'>Business</h1>
-            <div className='flex flex-col gap-6'>
-             {data[1]?<CatPost data={data[1]}></CatPost>:<></>}
-             {data[2]?<CatPost data={data[2]}></CatPost>:<></>}
-             {data[3]?<CatPost data={data[3]}></CatPost>:<></>}
+            <div className='flex flex-col items-center gap-6'>
+             {posts.map((post)=>(
+              (post.category.categoryName == "Business")? <CatPost data={post} key={`B${post.sys.id}`}></CatPost>:<></>
+             ))
+             }
             </div>
           </div>
 
           <div>
-          <h1 className='text-2xl font-bold py-12 text-center lg:text-start'>Travel</h1>
+          <h1 className='text-2xl font-bold py-12 text-center lg:text-start'>Technology</h1>
           <div className='flex flex-col gap-6'>
-            {data[4]?<CatPost data={data[4]}></CatPost>:<></>}
-             {data[3]?<CatPost data={data[3]}></CatPost>:<></>}
-             {data[2]?<CatPost data={data[2]}></CatPost>:<></>}
+          {posts.map((post)=>(
+              (post.category.categoryName == "Technology")? <CatPost data={post} key={`T${post.sys.id}`}></CatPost>:<></>
+             ))
+             }
+            </div>
+          </div>
+          <div>
+          <h1 className='text-2xl font-bold py-12 text-center lg:text-start'>General</h1>
+          <div className='flex flex-col gap-4'>
+          {posts.map((post)=>(
+              (post.category.categoryName == "General")? <CatPost data={post} key={`G${post.sys.id}`}></CatPost>:<></>
+             ))
+             }
             </div>
           </div>
         </div>
@@ -35,26 +43,6 @@ const Section4 = () => {
     </section>
   )
 }
-
 export default Section4
 
 
-function CatPost({data}){
-  const {id,title,category,img,published,author} = data;
-return (
-<div className='flex gap-5'>
-        <div className='flex flex-col justify-start'>
-        <Link href={"/"}><a><Image src={img||"/"} width={300} height={250}></Image></a></Link>        </div>
-        <div className='flex flex-col justify-center'>
-        <div>
-        <Link href={"/"}><a className='text-orange-700 text-sm'>{category||"unknown"}</a></Link>
-        <span className='text-black'>-{published||"unknown"}</span>
-        </div>
-        <div>
-        <Link href={"/"}><a className='text-xl font-bold text-gray-800 hover:text-gray-600 md:text-xl'>{title||"unknown"}</a></Link>
-        </div>
-        {author? <Author data={author}></Author>:<></>}
-        </div>
-    </div>
-)
-}
